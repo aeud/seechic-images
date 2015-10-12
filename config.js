@@ -3,8 +3,8 @@ var csv = require('csv')
 
 var desktopPath = '/Users/souadassaad/Desktop'
 
-var inputConfig = fs.readFileSync(desktopPath + '/input-config-lux.csv', 'utf-8')
-var outputSimple = fs.readFileSync(desktopPath + '/output-simple-lux.csv', 'utf-8')
+var inputConfig = fs.readFileSync(desktopPath + '/input-config.csv', 'utf-8')
+var outputSimple = fs.readFileSync(desktopPath + '/output-simple-mog-tomford.csv', 'utf-8')
 
 csv.parse(inputConfig, (err,resp) => {
   if (err) throw err
@@ -17,12 +17,12 @@ csv.parse(inputConfig, (err,resp) => {
       return filter.length > 0 ? [i[0], filter[0][1]] : [i[0], null]
     }).map(el => {
       if (el[1]) {
-        im = fs.readFileSync(desktopPath + '/product/Pictures/LUXOTTICA' + '/' + el[1])
+        im = fs.readFileSync(desktopPath + '/product/Pictures/MOG' + '/' + el[1])
         var newName = 'config/' + el[0] + '.jpg'
         fs.writeFileSync(desktopPath + '/bla'+ '/' + newName , im)
         return [el[0], newName]
       } else return [el[0], newName]
     })
-    csv.stringify(map, (err, string) => fs.writeFile(desktopPath + '/output-config-lux.csv', string, (err, resp) => console.log('DONE.')))
+    csv.stringify(map, (err, string) => fs.writeFile(desktopPath + '/output-config-tomford.csv', string, (err, resp) => console.log('DONE.')))
   })
 })
