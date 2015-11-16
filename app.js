@@ -2,7 +2,7 @@ var fs = require('fs')
 var csv = require('csv')
 
 var desktopPath = '/Users/souadassaad/Desktop'
-var path = desktopPath + '/product/Pictures/MOG'
+var path = '/Users/souadassaad/Box Sync/10. Products/Product Pictures/ALL PICTURES'
 
 var web = path => {
   return fs.readdirSync(path).map(x => {
@@ -16,7 +16,7 @@ w = web(path).map(x => x.replace(path + '/', ''))
 var file = fs.readFileSync(desktopPath + '/input-simple.csv', 'utf-8')
 
 csv.parse(file, (err, input) => {
-  map = input.map(i => {
+  var map = input.map(i => {
     return [i[0], w.filter(f => {
         big = f.toLowerCase().replace(/\.jpg/gi, '')
         small = i[1].toLowerCase().replace(/\.jpg/gi, '')
@@ -27,5 +27,5 @@ csv.parse(file, (err, input) => {
   }).map(x => {
     return x[1].map(y => [x[0], y])
   }).reduce((a,b) => a.concat(b), [])
-  csv.stringify(map, (err, string) => fs.writeFile(desktopPath + '/output-simple-mog-tomford.csv', string, (err, resp) => console.log('DONE.')))
+  csv.stringify(map, (err, string) => fs.writeFile(desktopPath + '/output.csv', string, (err, resp) => console.log('DONE.')))
 })
